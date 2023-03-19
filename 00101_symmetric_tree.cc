@@ -25,3 +25,30 @@ public:
         return isMirror(root->left, root->right);      
     }
 };
+
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        queue<TreeNode*> q;
+        q.push(root->left);
+        q.push(root->right);
+        while (!q.empty()) {
+            auto l = q.front(); q.pop();
+            auto r = q.front(); q.pop();
+            if (l && r) {
+                if (l->val != r->val) return false;
+
+                q.push(l->left);
+                q.push(r->right);
+
+                q.push(l->right);
+                q.push(r->left);
+            } else {
+                if (l || r) return false;
+            }
+        }
+
+        return true;
+    }
+};
